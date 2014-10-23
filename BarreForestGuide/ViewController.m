@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <sqlite3.h>
 
 @interface ViewController ()
 @end
@@ -35,6 +36,15 @@
   //           forKeyPath:@"myLocation"
   //              options:NSKeyValueObservingOptionNew
   //              context:NULL];
+
+  sqlite3 *mapDataDB_;
+  NSString *mapDataDBName_ = [[NSBundle mainBundle]
+                              pathForResource:@"BarreForestGuide"
+                                       ofType:@"sqlite"];
+  if (sqlite3_open([mapDataDBName_ UTF8String], &mapDataDB_) != SQLITE_OK) {
+    NSLog(@"Failed to open database!");
+  }
+  sqlite3_close(mapDataDB_);
   
   self.view = mapView_;
   
