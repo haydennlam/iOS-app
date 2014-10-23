@@ -29,6 +29,7 @@
 		6E661E3F19F74AC300481D4D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E661E3E19F74AC300481D4D /* libsqlite3.dylib */; };
 		6E78103719F77AAE00F2AE80 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E78103619F77AAE00F2AE80 /* GoogleMaps.framework */; };
 		6E78103919F77AFC00F2AE80 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E78103819F77AFC00F2AE80 /* GoogleMaps.bundle */; };
+		6E816E7F19F8C44D00350881 /* BarreForestGuide.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		6E661E3E19F74AC300481D4D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		6E78103619F77AAE00F2AE80 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		6E78103819F77AFC00F2AE80 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = BarreForestGuide.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		6E661DED19F4C68D00481D4D = {
 			isa = PBXGroup;
 			children = (
+				6E816E7019F8C34A00350881 /* Resources */,
 				6E661E2119F6706800481D4D /* Frameworks */,
 				6E661DF819F4C68D00481D4D /* BarreForestGuide */,
 				6E661E1219F4C68E00481D4D /* BarreForestGuideTests */,
@@ -186,6 +189,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6E816E7019F8C34A00350881 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,6 +204,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E661E1919F4C68E00481D4D /* Build configuration list for PBXNativeTarget "BarreForestGuide" */;
 			buildPhases = (
+				6EE49F4C19F95A0400E53AC5 /* ShellScript */,
 				6E661DF219F4C68D00481D4D /* Sources */,
 				6E661DF319F4C68D00481D4D /* Frameworks */,
 				6E661DF419F4C68D00481D4D /* Resources */,
@@ -268,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E661E0519F4C68D00481D4D /* Main.storyboard in Resources */,
+				6E816E7F19F8C44D00350881 /* BarreForestGuide.sqlite in Resources */,
 				6E661E0A19F4C68D00481D4D /* LaunchScreen.xib in Resources */,
 				6E661E0719F4C68D00481D4D /* Images.xcassets in Resources */,
 				6E78103919F77AFC00F2AE80 /* GoogleMaps.bundle in Resources */,
@@ -282,6 +295,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6EE49F4C19F95A0400E53AC5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Users/agricolc/Desktop/BarreForestGuide/iOS-app/Install_GMapsAPI.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6E661DF219F4C68D00481D4D /* Sources */ = {
