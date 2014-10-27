@@ -23,14 +23,22 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
 
-  if (locationManager_ == nil)
-    locationManager_ = [[CLLocationManager alloc] init];
-  locationManager_.desiredAccuracy = kCLLocationAccuracyBest;
-  locationManager_.delegate = self;
-  [locationManager_ startUpdatingLocation];
+  if ([CLLocationManager locationServicesEnabled]) {
+    if (locationManager_ == nil)
+      locationManager_ = [[CLLocationManager alloc] init];
+    locationManager_.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager_.distanceFilter = 1;
+    locationManager_.delegate = self;
+    if ([locationManager_ respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+      [locationManager_ requestWhenInUseAuthorization];
+    }
+    [locationManager_ startUpdatingLocation];
+  }
 
   GMSCameraPosition *camera = [ GMSCameraPosition cameraWithLatitude:44.150004 longitude:-72.469339 zoom:15];
   mapView_ =  [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  mapView_.settings.compassButton = YES;
+  mapView_.settings.myLocationButton = YES;
   //mapView_.myLocationEnabled = YES;
   
   //[mapView_ addObserver:self
@@ -53,12 +61,12 @@
         int trail_id = sqlite3_column_int(mapobjQueryStmt, 0);
         double lattitude = sqlite3_column_double(mapobjQueryStmt, 1);
         double longitude = sqlite3_column_double(mapobjQueryStmt, 2);
-        NSLog(@"trail_id %d (%f, %f)", trail_id, lattitude, longitude);
+        //NSLog(@"trail_id %d (%f, %f)", trail_id, lattitude, longitude);
         if (prev_trail_id != trail_id) {
           if (trailpath && ([trailpath count]>1)) {
             GMSPolyline *trailpoly = [GMSPolyline polylineWithPath:trailpath];
             trailpoly.map = mapView_;
-            NSLog(@"Putting Polyline on the map");
+            //NSLog(@"Putting Polyline on the map");
           }
           trailpath = [GMSMutablePath path];
           prev_trail_id = trail_id;
@@ -89,8 +97,8 @@
   NSDate *locDate = location.timestamp;
   NSTimeInterval age = [locDate timeIntervalSinceNow];
   if (abs(age) < 15.0) {
-    GMSCameraUpdate *locUpdate = [GMSCameraUpdate setTarget:location.coordinate zoom:20];
-    [mapView_ animateWithCameraUpdate:locUpdate];
+    GMSCameraUpdate *locUpdate = [GMSCameraUpdate setTarget:location.coordinate zoom:17];
+    //[mapView_ animateWithCameraUpdate:locUpdate];
   }
   NSLog(@"Got a new location update");
 }
@@ -98,6 +106,7 @@
 - (void)locationManager:(CLLocationManager*)manager
        didFailWithError:(NSError*)error
 {
+  NSLog(@"Got a location error");
 }
 
 - (void)didReceiveMemoryWarning {
