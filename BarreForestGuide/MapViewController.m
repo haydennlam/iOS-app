@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  MapViewController.m
 //  BarreForestGuide
 //
 //  Created by Craig B. Agricola on 10/20/14.
 //  Copyright (c) 2014 Town of Barre. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MapViewController.h"
 #import <sqlite3.h>
 
-@interface ViewController ()
+@interface MapViewController ()
 @end
 
-@implementation ViewController {
+@implementation MapViewController {
   GMSMapView        *mapView_;
   CLLocationManager *locationManager_;
   sqlite3           *mapDataDB_;

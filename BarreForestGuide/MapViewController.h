@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MapViewController.h
 //  BarreForestGuide
 //
 //  Created by Craig B. Agricola on 10/20/14.
@@ -10,9 +10,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <GoogleMaps/GoogleMaps.h>
 
-@interface ViewController : UIViewController
-                              <CLLocationManagerDelegate,
-                               GMSMapViewDelegate>
+@interface MapViewController : UIViewController
+                                 <CLLocationManagerDelegate,
+                                  GMSMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *mapView;
 
