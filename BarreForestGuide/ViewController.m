@@ -19,6 +19,8 @@
   NSMutableArray    *mapPolylines_;
 }
 
+@synthesize mapView;
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
@@ -36,7 +38,7 @@
   }
 
   GMSCameraPosition *camera = [ GMSCameraPosition cameraWithLatitude:44.150004 longitude:-72.469339 zoom:15];
-  mapView_ =  [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  mapView_ =  [GMSMapView mapWithFrame:mapView.bounds camera:camera];
   mapView_.settings.compassButton = YES;
   mapView_.settings.myLocationButton = YES;
   //mapView_.myLocationEnabled = YES;
@@ -82,8 +84,8 @@
       NSLog(@"Failed to query database for Polyline points!");
   } else
     NSLog(@"Failed to open database!");
-  
-  self.view = mapView_;
+
+  [mapView addSubview:mapView_];
   
   //dispatch_async(dispatch_get_main_queue(), ^{
   //    mapView_.myLocationEnabled = YES;

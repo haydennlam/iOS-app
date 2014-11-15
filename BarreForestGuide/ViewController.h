@@ -14,5 +14,7 @@
                               <CLLocationManagerDelegate,
                                GMSMapViewDelegate>
 
+@property (nonatomic, weak) IBOutlet UIView *mapView;
+
 @end
 
