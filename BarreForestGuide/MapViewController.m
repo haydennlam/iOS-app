@@ -54,7 +54,7 @@
   if (sqlite3_open([mapDataDBName_ UTF8String], &mapDataDB_) == SQLITE_OK) {
     NSString *mapobjQuerySQL =
         //[NSString stringWithFormat:@"select trail_id,lattitude,longitude from trail, coordinate, trail_difficulty where trail_id=trail.id and difficulty_id=trail_difficulty.id and english_difficulty in (\"Easy\",\"Moderate\",\"Walking\") order by trail_id, seq;"];
-        [NSString stringWithFormat:@"select trail_id,lattitude,longitude from coordinate order by trail_id, seq;"];
+        [NSString stringWithFormat:@"select trail_id,lattitude,longitude from coordinates order by trail_id, rowid;"];
     sqlite3_stmt *mapobjQueryStmt = nil;
     if (sqlite3_prepare_v2(mapDataDB_, [mapobjQuerySQL UTF8String], -1, &mapobjQueryStmt, NULL) == SQLITE_OK) {
       GMSMutablePath *trailpath = nil;
