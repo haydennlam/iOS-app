@@ -1,23 +1,25 @@
 //
-//  ViewController.m
+//  MapViewController.m
 //  BarreForestGuide
 //
 //  Created by Craig B. Agricola on 10/20/14.
 //  Copyright (c) 2014 Town of Barre. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MapViewController.h"
 #import <sqlite3.h>
 
-@interface ViewController ()
+@interface MapViewController ()
 @end
 
-@implementation ViewController {
+@implementation MapViewController {
   GMSMapView        *mapView_;
   CLLocationManager *locationManager_;
   sqlite3           *mapDataDB_;
   NSMutableArray    *mapPolylines_;
 }
+
+@synthesize mapView;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -36,9 +38,10 @@
   }
 
   GMSCameraPosition *camera = [ GMSCameraPosition cameraWithLatitude:44.150004 longitude:-72.469339 zoom:15];
-  mapView_ =  [GMSMapView mapWithFrame:CGRectZero camera:camera];
+  mapView_ =  [GMSMapView mapWithFrame:mapView.bounds camera:camera];
   mapView_.settings.compassButton = YES;
   mapView_.settings.myLocationButton = YES;
+  //mapView_.mapType = kGMSTypeSatellite;
   //mapView_.myLocationEnabled = YES;
   
   //[mapView_ addObserver:self
@@ -51,8 +54,7 @@
                                        ofType:@"sqlite"];
   if (sqlite3_open([mapDataDBName_ UTF8String], &mapDataDB_) == SQLITE_OK) {
     NSString *mapobjQuerySQL =
-        //[NSString stringWithFormat:@"select trail_id,lattitude,longitude from trail, coordinate, trail_difficulty where trail_id=trail.id and difficulty_id=trail_difficulty.id and english_difficulty in (\"Easy\",\"Moderate\",\"Walking\") order by trail_id, seq;"];
-        [NSString stringWithFormat:@"select trail_id,lattitude,longitude from coordinate order by trail_id, seq;"];
+        [NSString stringWithFormat:@"select trail_id,lattitude,longitude from coordinates order by trail_id, rowid;"];
     sqlite3_stmt *mapobjQueryStmt = nil;
     if (sqlite3_prepare_v2(mapDataDB_, [mapobjQuerySQL UTF8String], -1, &mapobjQueryStmt, NULL) == SQLITE_OK) {
       GMSMutablePath *trailpath = nil;
@@ -80,10 +82,32 @@
       sqlite3_finalize(mapobjQueryStmt);
     } else
       NSLog(@"Failed to query database for Polyline points!");
+
+    NSString *POIQuerySQL =
+        [NSString stringWithFormat:@"select name,type,lattitude,longitude,url from points_of_interest;"];
+    sqlite3_stmt *POIQueryStmt = nil;
+    if (sqlite3_prepare_v2(mapDataDB_, [POIQuerySQL UTF8String], -1, &POIQueryStmt, NULL) == SQLITE_OK) {
+      while(sqlite3_step(POIQueryStmt) == SQLITE_ROW) {
+        char *name = (char*)sqlite3_column_text(POIQueryStmt, 0);
+        int type = sqlite3_column_int(POIQueryStmt, 1);
+        double lattitude = sqlite3_column_double(POIQueryStmt, 2);
+        double longitude = sqlite3_column_double(POIQueryStmt, 3);
+        char *url = (char*)sqlite3_column_text(POIQueryStmt, 4);
+        NSLog(@"POI: %s [%d] (%f, %f) - %s", name, type, lattitude, longitude, url);
+
+        CLLocationCoordinate2D pos = CLLocationCoordinate2DMake(lattitude, longitude);
+        GMSMarker *marker = [GMSMarker markerWithPosition:pos];
+        if (name) marker.title = [NSString stringWithUTF8String:name];
+        if (url) marker.snippet = [NSString stringWithFormat:@"<a href=\"%s\">More Info</a>", url];
+        marker.map = mapView_;
+      }
+      sqlite3_finalize(POIQueryStmt);
+    } else
+      NSLog(@"Failed to query database for POI data!");
   } else
     NSLog(@"Failed to open database!");
-  
-  self.view = mapView_;
+
+  [mapView addSubview:mapView_];
   
   //dispatch_async(dispatch_get_main_queue(), ^{
   //    mapView_.myLocationEnabled = YES;
