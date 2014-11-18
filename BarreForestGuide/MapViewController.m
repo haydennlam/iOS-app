@@ -83,6 +83,27 @@
     } else
       NSLog(@"Failed to query database for Polyline points!");
 
+    NSMutableDictionary *POI_Icons = [[NSMutableDictionary alloc] init];
+
+    NSString *POITypeQuerySQL =
+        [NSString stringWithFormat:@"select rowid,name from poi_types;"];
+    sqlite3_stmt *POITypeQueryStmt = nil;
+    if (sqlite3_prepare_v2(mapDataDB_, [POITypeQuerySQL UTF8String], -1, &POITypeQueryStmt, NULL) == SQLITE_OK) {
+      while(sqlite3_step(POITypeQueryStmt) == SQLITE_ROW) {
+        int type = sqlite3_column_int(POITypeQueryStmt, 0);
+        char *name = (char*)sqlite3_column_text(POITypeQueryStmt, 1);
+        NSString *iconName = [NSString stringWithFormat:@"%s.png", name];
+        iconName = [iconName stringByReplacingOccurrencesOfString:@" " withString:@""];
+        //NSLog(@"Icon name: %@", iconName);
+        UIImage *icon = [UIImage imageNamed:iconName];
+        //if (icon) [POI_Icons setObject:icon atIndexedSubscript:type];
+        [POI_Icons setObject:icon forKey:[NSNumber numberWithInt:type]];
+      }
+      sqlite3_finalize(POITypeQueryStmt);
+    } else {
+      NSLog(@"Failed to query database for POI type data!");
+    }
+
     NSString *POIQuerySQL =
         [NSString stringWithFormat:@"select name,type,lattitude,longitude,url from points_of_interest;"];
     sqlite3_stmt *POIQueryStmt = nil;
@@ -93,12 +114,14 @@
         double lattitude = sqlite3_column_double(POIQueryStmt, 2);
         double longitude = sqlite3_column_double(POIQueryStmt, 3);
         char *url = (char*)sqlite3_column_text(POIQueryStmt, 4);
-        NSLog(@"POI: %s [%d] (%f, %f) - %s", name, type, lattitude, longitude, url);
+        //NSLog(@"POI: %s [%d] (%f, %f) - %s", name, type, lattitude, longitude, url);
 
         CLLocationCoordinate2D pos = CLLocationCoordinate2DMake(lattitude, longitude);
         GMSMarker *marker = [GMSMarker markerWithPosition:pos];
         if (name) marker.title = [NSString stringWithUTF8String:name];
         if (url) marker.snippet = [NSString stringWithFormat:@"<a href=\"%s\">More Info</a>", url];
+        UIImage *icon = [POI_Icons objectForKey:[NSNumber numberWithInt:type]];
+        if (icon) marker.icon = icon;
         marker.map = mapView_;
       }
       sqlite3_finalize(POIQueryStmt);

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E322DD11A1AFEF200FE4B45 /* Overlook.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E322DCE1A1AFEF200FE4B45 /* Overlook.png */; };
+		6E322DD21A1AFEF200FE4B45 /* ParkingLot.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E322DCF1A1AFEF200FE4B45 /* ParkingLot.png */; };
+		6E322DD31A1AFEF200FE4B45 /* Store.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E322DD01A1AFEF200FE4B45 /* Store.png */; };
 		6E661DFC19F4C68D00481D4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661DFB19F4C68D00481D4D /* main.m */; };
 		6E661DFF19F4C68D00481D4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661DFE19F4C68D00481D4D /* AppDelegate.m */; };
 		6E661E0219F4C68D00481D4D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661E0119F4C68D00481D4D /* MapViewController.m */; };
@@ -43,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E322DCE1A1AFEF200FE4B45 /* Overlook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Overlook.png; path = BarreForestGuide/Images.xcassets/POI_Icons/Overlook.png; sourceTree = "<group>"; };
+		6E322DCF1A1AFEF200FE4B45 /* ParkingLot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ParkingLot.png; path = BarreForestGuide/Images.xcassets/POI_Icons/ParkingLot.png; sourceTree = "<group>"; };
+		6E322DD01A1AFEF200FE4B45 /* Store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Store.png; path = BarreForestGuide/Images.xcassets/POI_Icons/Store.png; sourceTree = "<group>"; };
 		6E661DF619F4C68D00481D4D /* BarreForestGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarreForestGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E661DFA19F4C68D00481D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E661DFB19F4C68D00481D4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -106,6 +112,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E322DCD1A1AFE0600FE4B45 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				6E322DCE1A1AFEF200FE4B45 /* Overlook.png */,
+				6E322DCF1A1AFEF200FE4B45 /* ParkingLot.png */,
+				6E322DD01A1AFEF200FE4B45 /* Store.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		6E661DED19F4C68D00481D4D = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +208,7 @@
 		6E816E7019F8C34A00350881 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6E322DCD1A1AFE0600FE4B45 /* Icons */,
 				6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */,
 			);
 			name = Resources;
@@ -281,8 +298,11 @@
 			files = (
 				6E661E0519F4C68D00481D4D /* Main.storyboard in Resources */,
 				6E816E7F19F8C44D00350881 /* BarreForestGuide.sqlite in Resources */,
+				6E322DD31A1AFEF200FE4B45 /* Store.png in Resources */,
 				6E661E0A19F4C68D00481D4D /* LaunchScreen.xib in Resources */,
+				6E322DD21A1AFEF200FE4B45 /* ParkingLot.png in Resources */,
 				6E661E0719F4C68D00481D4D /* Images.xcassets in Resources */,
+				6E322DD11A1AFEF200FE4B45 /* Overlook.png in Resources */,
 				6E78103919F77AFC00F2AE80 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
