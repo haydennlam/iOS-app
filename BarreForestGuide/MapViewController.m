@@ -83,6 +83,27 @@
     } else
       NSLog(@"Failed to query database for Polyline points!");
 
+    NSMutableDictionary *POI_Icons = [[NSMutableDictionary alloc] init];
+
+    NSString *POITypeQuerySQL =
+        [NSString stringWithFormat:@"select rowid,name from poi_types;"];
+    sqlite3_stmt *POITypeQueryStmt = nil;
+    if (sqlite3_prepare_v2(mapDataDB_, [POITypeQuerySQL UTF8String], -1, &POITypeQueryStmt, NULL) == SQLITE_OK) {
+      while(sqlite3_step(POITypeQueryStmt) == SQLITE_ROW) {
+        int type = sqlite3_column_int(POITypeQueryStmt, 0);
+        char *name = (char*)sqlite3_column_text(POITypeQueryStmt, 1);
+        NSString *iconName = [NSString stringWithFormat:@"%s.png", name];
+        iconName = [iconName stringByReplacingOccurrencesOfString:@" " withString:@""];
+        //NSLog(@"Icon name: %@", iconName);
+        UIImage *icon = [UIImage imageNamed:iconName];
+        //if (icon) [POI_Icons setObject:icon atIndexedSubscript:type];
+        [POI_Icons setObject:icon forKey:[NSNumber numberWithInt:type]];
+      }
+      sqlite3_finalize(POITypeQueryStmt);
+    } else {
+      NSLog(@"Failed to query database for POI type data!");
+    }
+
     NSString *POIQuerySQL =
         [NSString stringWithFormat:@"select name,type,lattitude,longitude,url from points_of_interest;"];
     sqlite3_stmt *POIQueryStmt = nil;
@@ -93,12 +114,14 @@
         double lattitude = sqlite3_column_double(POIQueryStmt, 2);
         double longitude = sqlite3_column_double(POIQueryStmt, 3);
         char *url = (char*)sqlite3_column_text(POIQueryStmt, 4);
-        NSLog(@"POI: %s [%d] (%f, %f) - %s", name, type, lattitude, longitude, url);
+        //NSLog(@"POI: %s [%d] (%f, %f) - %s", name, type, lattitude, longitude, url);
 
         CLLocationCoordinate2D pos = CLLocationCoordinate2DMake(lattitude, longitude);
         GMSMarker *marker = [GMSMarker markerWithPosition:pos];
         if (name) marker.title = [NSString stringWithUTF8String:name];
         if (url) marker.snippet = [NSString stringWithFormat:@"<a href=\"%s\">More Info</a>", url];
+        UIImage *icon = [POI_Icons objectForKey:[NSNumber numberWithInt:type]];
+        if (icon) marker.icon = icon;
         marker.map = mapView_;
       }
       sqlite3_finalize(POIQueryStmt);
@@ -108,10 +131,49 @@
     NSLog(@"Failed to open database!");
 
   [mapView addSubview:mapView_];
+  mapView_.delegate = self;
   
   //dispatch_async(dispatch_get_main_queue(), ^{
   //    mapView_.myLocationEnabled = YES;
   //});
+}
+
+- (UIView*)mapView:(GMSMapView*)mapView
+    markerInfoContents:(GMSMarker*)marker
+{
+  UIView *win = [[UIView alloc] initWithFrame: CGRectMake(0,0,0,0)];
+  UILabel *title_label = [[UILabel alloc] initWithFrame: CGRectMake(0,0,0,0)];
+  title_label.text = marker.title;
+  [title_label sizeToFit];
+  UIButton *moreinfo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [moreinfo setTitle:@"More info" forState:UIControlStateNormal];
+  [moreinfo sizeToFit];
+  int numbuttons = 1;
+  UIButton *share = 0;
+  share = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  if (share) {
+    numbuttons++;
+    [share setTitle:@"Share" forState:UIControlStateNormal];
+    [share sizeToFit];
+  }
+  int w = title_label.bounds.size.width;
+  int h = title_label.bounds.size.height;
+  int bw = moreinfo.frame.size.width + share.frame.size.width;
+  if (share) bw = bw + share.frame.size.width;
+  if (w<bw) w=bw;
+  int bh = moreinfo.frame.size.height;
+  if ((share) && (bh<share.frame.size.height)) bh=share.frame.size.height;
+  if (h<bh) h=bh;
+  title_label.frame = CGRectMake(0, 0, w, h);
+  moreinfo.frame = CGRectMake(0, h, w/numbuttons, h);
+  if (share)
+    share.frame = CGRectMake(w/numbuttons, h, w/numbuttons, h);
+  win.frame = CGRectMake(0, 0, w, 2*h);
+  [win addSubview:title_label];
+  [win addSubview:moreinfo];
+  if (share)
+    [win addSubview:share];
+  return(win);
 }
 
 - (void)locationManager:(CLLocationManager*)manager
