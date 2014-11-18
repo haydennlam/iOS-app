@@ -41,8 +41,12 @@
   mapView_ =  [GMSMapView mapWithFrame:mapView.bounds camera:camera];
   mapView_.settings.compassButton = YES;
   mapView_.settings.myLocationButton = YES;
-  //mapView_.mapType = kGMSTypeSatellite;
+  mapView_.mapType = self.configModel.mapType;
   //mapView_.myLocationEnabled = YES;
+
+  //self.configModel.mapType = kGMSTypeSatellite;
+  self.configModel.mapType = kGMSTypeNormal;
+  //[self.configModel saveToDefaults];
   
   //[mapView_ addObserver:self
   //           forKeyPath:@"myLocation"

@@ -10,6 +10,7 @@
 		6E322DD11A1AFEF200FE4B45 /* Overlook.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E322DCE1A1AFEF200FE4B45 /* Overlook.png */; };
 		6E322DD21A1AFEF200FE4B45 /* ParkingLot.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E322DCF1A1AFEF200FE4B45 /* ParkingLot.png */; };
 		6E322DD31A1AFEF200FE4B45 /* Store.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E322DD01A1AFEF200FE4B45 /* Store.png */; };
+		6E322DE31A1B127300FE4B45 /* ConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E322DE21A1B127300FE4B45 /* ConfigModel.m */; };
 		6E661DFC19F4C68D00481D4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661DFB19F4C68D00481D4D /* main.m */; };
 		6E661DFF19F4C68D00481D4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661DFE19F4C68D00481D4D /* AppDelegate.m */; };
 		6E661E0219F4C68D00481D4D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661E0119F4C68D00481D4D /* MapViewController.m */; };
@@ -49,6 +50,8 @@
 		6E322DCE1A1AFEF200FE4B45 /* Overlook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Overlook.png; path = BarreForestGuide/Images.xcassets/POI_Icons/Overlook.png; sourceTree = "<group>"; };
 		6E322DCF1A1AFEF200FE4B45 /* ParkingLot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ParkingLot.png; path = BarreForestGuide/Images.xcassets/POI_Icons/ParkingLot.png; sourceTree = "<group>"; };
 		6E322DD01A1AFEF200FE4B45 /* Store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Store.png; path = BarreForestGuide/Images.xcassets/POI_Icons/Store.png; sourceTree = "<group>"; };
+		6E322DDE1A1B120000FE4B45 /* ConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigModel.h; sourceTree = "<group>"; };
+		6E322DE21A1B127300FE4B45 /* ConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigModel.m; sourceTree = "<group>"; };
 		6E661DF619F4C68D00481D4D /* BarreForestGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarreForestGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E661DFA19F4C68D00481D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E661DFB19F4C68D00481D4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -147,6 +150,8 @@
 			children = (
 				6E661DFD19F4C68D00481D4D /* AppDelegate.h */,
 				6E661DFE19F4C68D00481D4D /* AppDelegate.m */,
+				6E322DDE1A1B120000FE4B45 /* ConfigModel.h */,
+				6E322DE21A1B127300FE4B45 /* ConfigModel.m */,
 				6E661E0019F4C68D00481D4D /* MapViewController.h */,
 				6E661E0119F4C68D00481D4D /* MapViewController.m */,
 				6E661E0319F4C68D00481D4D /* Main.storyboard */,
@@ -340,6 +345,7 @@
 				6E661E0219F4C68D00481D4D /* MapViewController.m in Sources */,
 				6E661DFF19F4C68D00481D4D /* AppDelegate.m in Sources */,
 				6E661DFC19F4C68D00481D4D /* main.m in Sources */,
+				6E322DE31A1B127300FE4B45 /* ConfigModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
