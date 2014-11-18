@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import "ConfigModel.h"
 
 @interface MapViewController : UIViewController
                                  <CLLocationManagerDelegate,
                                   GMSMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *mapView;
+@property ConfigModel *configModel;
 
 @end
 
