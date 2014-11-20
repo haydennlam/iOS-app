@@ -1,6 +1,14 @@
 #!/bin/bash
 
-if [ ! -e GoogleMaps.framework ]; then
+key=0
+unkey=0
+if [ "$1"x == "-key"x -o "$1"x == "--key"x ]; then
+  key=1
+elif [ "$1"x == "-unkey"x -o "$1"x == "--unkey"x ]; then
+  unkey=1
+fi
+
+if [ ! -e GoogleMaps.framework ] || [ $key -eq 1 ]; then
   GMAPS_DIST_ZIP=GoogleMaps-iOS-1.9.0.zip
   if [ -r ${GMAPS_DIST_ZIP} ]; then
     GMAPS_DIST_PATH=""
@@ -11,6 +19,9 @@ if [ ! -e GoogleMaps.framework ]; then
   elif [ -r "${HOME}/${GMAPS_DIST_ZIP}" ]; then
     GMAPS_DIST_PATH="$HOME/"
   fi
+fi
+
+if [ ! -e GoogleMaps.framework ]; then
   if [ ! -r "${GMAPS_DIST_PATH}${GMAPS_DIST_ZIP}" ]; then
     (cd ..; curl -O "https://dl.google.com/geosdk/GoogleMaps-iOS-1.9.0.zip")
     GMAPS_DIST_PATH="../"
@@ -19,6 +30,10 @@ if [ ! -e GoogleMaps.framework ]; then
   mv GoogleMaps-iOS-1.9.0/GoogleMaps.framework .
   rmdir GoogleMaps-iOS-1.9.0
 
+  key=1
+fi
+
+if [ $key -eq 1 ]; then
   GMAPS_API_KEY_FILE=GoogleMaps-API-Key.txt
   API_KEY=$(cat ${GMAPS_DIST_PATH}${GMAPS_API_KEY_FILE})
   if [ -e ${GMAPS_DIST_PATH}${GMAPS_API_KEY_FILE} ]; then
@@ -39,6 +54,8 @@ if [ ! -e GoogleMaps.framework ]; then
     echo $API_KEY > ${GMAPS_DIST_PATH}${GMAPS_API_KEY_FILE}
   fi
   sed -i "" -e "s|GOOGLE_MAPS_API_KEY|${API_KEY}|g" BarreForestGuide/AppDelegate.m
+elif [ $unkey -eq 1 ]; then
+  sed -i "" -e 's|\(provideAPIKey:@"\)[^"]*"|\1GOOGLE_MAPS_API_KEY"|g' BarreForestGuide/AppDelegate.m
 fi
 
 exit 0
