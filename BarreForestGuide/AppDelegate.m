@@ -38,10 +38,7 @@
                                             UIUserNotificationTypeAlert)];
     }
 
-    _configModel = [[ConfigModel alloc] initFromDefaults];
-
-    MapViewController *mapViewController = (MapViewController*)self.window.rootViewController;
-    mapViewController.configModel = self.configModel;
+    _configModel = [[ConfigModel getConfigModel] initFromDefaults];
 
     return YES;
 }

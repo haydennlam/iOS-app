@@ -25,6 +25,8 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
 
+  self.configModel = [ConfigModel getConfigModel];
+
   if ([CLLocationManager locationServicesEnabled]) {
     if (locationManager_ == nil)
       locationManager_ = [[CLLocationManager alloc] init];
@@ -45,7 +47,7 @@
   //mapView_.myLocationEnabled = YES;
 
   //self.configModel.mapType = kGMSTypeSatellite;
-  self.configModel.mapType = kGMSTypeNormal;
+  //self.configModel.mapType = kGMSTypeNormal;
   //[self.configModel saveToDefaults];
   
   //[mapView_ addObserver:self

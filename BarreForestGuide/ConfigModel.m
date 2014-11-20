@@ -20,6 +20,13 @@
   return(self);
 }
 
++ (ConfigModel*)getConfigModel {
+  static ConfigModel *singleton = nil;
+  static dispatch_once_t gate;
+  dispatch_once(&gate, ^{ singleton = [[ConfigModel alloc] init]; });
+  return(singleton);
+}
+
 - (id) initWithCoder:(NSCoder*)decoder {
   self.mapTracksGPS = [decoder decodeBoolForKey:@"mapTracksGPS"];
   self.mapType = [decoder decodeIntForKey:@"mapType"];

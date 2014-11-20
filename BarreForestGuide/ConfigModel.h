@@ -14,6 +14,7 @@
 @property BOOL            mapTracksGPS;
 @property GMSMapViewType  mapType;
 
++ (ConfigModel*)getConfigModel;
 - (id) initFromDefaults;
 - (void) saveToDefaults;
 
