@@ -18,5 +18,8 @@
 @property (nonatomic, weak) IBOutlet UIView *mapView;
 @property ConfigModel *configModel;
 
+- (void)drawMapObjects;
+
 @end
 
+/* vim: set ai si sw=2 ts=80 ru: */
