@@ -19,3 +19,5 @@
 - (void) saveToDefaults;
 
 @end
+
+/* vim: set ai si sw=2 ts=80 ru: */
