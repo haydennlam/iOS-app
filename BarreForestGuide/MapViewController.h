@@ -16,9 +16,11 @@
                                   GMSMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *mapView;
-@property ConfigModel *configModel;
+@property UIViewController  *webViewController;
+@property ConfigModel       *configModel;
 
 - (void)drawMapObjects;
+- (void)launchWebView:(id)sender;
 
 @end
 
