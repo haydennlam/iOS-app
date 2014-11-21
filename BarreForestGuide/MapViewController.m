@@ -144,6 +144,11 @@
   //});
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  mapView_.mapType = self.configModel.mapType;
+}
+
 - (UIView*)mapView:(GMSMapView*)mapView
     markerInfoContents:(GMSMarker*)marker
 {
