@@ -46,14 +46,23 @@
   mapView_.mapType = self.configModel.mapType;
   //mapView_.myLocationEnabled = YES;
 
-  //self.configModel.mapType = kGMSTypeSatellite;
-  //self.configModel.mapType = kGMSTypeNormal;
-  //[self.configModel saveToDefaults];
-  
+  [self drawMapObjects];
+
   //[mapView_ addObserver:self
   //           forKeyPath:@"myLocation"
   //              options:NSKeyValueObservingOptionNew
   //              context:NULL];
+
+  [mapView addSubview:mapView_];
+  mapView_.delegate = self;
+  
+  //dispatch_async(dispatch_get_main_queue(), ^{
+  //    mapView_.myLocationEnabled = YES;
+  //});
+}
+
+- (void)drawMapObjects {
+  [mapView_ clear];
 
   NSString *mapDataDBName_ = [[NSBundle mainBundle]
                               pathForResource:@"BarreForestGuide"
@@ -135,13 +144,12 @@
       NSLog(@"Failed to query database for POI data!");
   } else
     NSLog(@"Failed to open database!");
+}
 
-  [mapView addSubview:mapView_];
-  mapView_.delegate = self;
-  
-  //dispatch_async(dispatch_get_main_queue(), ^{
-  //    mapView_.myLocationEnabled = YES;
-  //});
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  mapView_.mapType = self.configModel.mapType;
+  [self drawMapObjects];
 }
 
 - (UIView*)mapView:(GMSMapView*)mapView
@@ -216,3 +224,5 @@
 }
 
 @end
+
+/* vim: set ai si sw=2 ts=80 ru: */

@@ -23,7 +23,7 @@
 + (ConfigModel*)getConfigModel {
   static ConfigModel *singleton = nil;
   static dispatch_once_t gate;
-  dispatch_once(&gate, ^{ singleton = [[ConfigModel alloc] init]; });
+  dispatch_once(&gate, ^{ singleton = [[ConfigModel alloc] initFromDefaults]; });
   return(singleton);
 }
 
@@ -56,3 +56,5 @@
 }
 
 @end
+
+/* vim: set ai si sw=2 ts=80 ru: */

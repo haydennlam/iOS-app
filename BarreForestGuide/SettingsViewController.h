@@ -1,20 +1,19 @@
 //
-//  AppDelegate.h
+//  SettingsViewController.h
 //  BarreForestGuide
 //
-//  Created by Craig B. Agricola on 10/20/14.
+//  Created by Craig B. Agricola on 11/20/14.
 //  Copyright (c) 2014 Town of Barre. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "ConfigModel.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface SettingsViewController : UITableViewController
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, weak) IBOutlet UISwitch *autoFollowGPS;
 @property ConfigModel *configModel;
 
 @end
-
 
 /* vim: set ai si sw=2 ts=80 ru: */
