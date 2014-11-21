@@ -37,10 +37,12 @@ GMSMapViewType rowToMapType(int row) {
   [super viewDidLoad];
   self.configModel = [ConfigModel getConfigModel];
   currentMapTypeRow = mapTypeToRow(self.configModel.mapType);
+  [self.autoFollowGPS setOn:self.configModel.mapTracksGPS animated:NO];
 }
 
-- (void)viewWillDisappear {
-  NSLog(@"Saving settings...");
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  self.configModel.mapTracksGPS = [self.autoFollowGPS isOn];
   [self.configModel saveToDefaults];
 }
 
@@ -80,3 +82,5 @@ GMSMapViewType rowToMapType(int row) {
 @end
 
 // vim:set ai si sw=2 ts=80 ru:
+
+/* vim: set ai si sw=2 ts=80 ru: */

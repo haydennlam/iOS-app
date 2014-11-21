@@ -183,12 +183,40 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Map Type" id="fd9-b2-V0Y">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationLevel="1" indentationWidth="10" id="nD2-0v-eeK">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nD2-0v-eeK" id="Gxk-8Y-BMv">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Automatically center map on GPS coordinates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aic-3Z-Fiy">
+                                                    <rect key="frame" x="8" y="11" width="355" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BU8-Cw-vhq">
+                                                    <rect key="frame" x="521" y="6" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="BU8-Cw-vhq" secondAttribute="centerY" id="1Ge-w2-ou9"/>
+                                                <constraint firstAttribute="trailing" secondItem="BU8-Cw-vhq" secondAttribute="trailing" constant="30" id="SK7-p6-T7X"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="mIy-wP-ffO" id="WVw-w3-id0"/>
                             <outlet property="delegate" destination="mIy-wP-ffO" id="EMM-nl-CXc"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="autoFollowGPS" destination="BU8-Cw-vhq" id="UTJ-ls-1qo"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vcq-fM-Jur" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
