@@ -298,27 +298,31 @@
         <!--POI Detail View-->
         <scene sceneID="MMM-BN-4jh">
             <objects>
-                <viewController title="POI Detail View" id="JBH-6f-Arx" userLabel="POI Detail View" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="POI Detail View" title="POI Detail View" id="JBH-6f-Arx" userLabel="POI Detail View" customClass="WebKitViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FIH-fV-1at"/>
-                        <viewControllerLayoutGuide type="bottom" id="M3A-WH-kIr"/>
+                        <viewControllerLayoutGuide type="top" id="bza-Ss-YI1"/>
+                        <viewControllerLayoutGuide type="bottom" id="zi6-t7-kZM"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bUb-UV-BVN" userLabel="POI Detail View">
+                    <view key="view" contentMode="scaleToFill" id="ig5-5B-42z">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTJ-56-CHu">
-                                <rect key="frame" x="243" y="509" width="70" height="30"/>
-                                <state key="normal" title="Share POI">
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6vq-h8-lqD">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ukU-fH-QS1">
+                                <rect key="frame" x="538" y="570" width="40" height="30"/>
+                                <state key="normal" title="Share">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="nyn-xy-vGm" kind="show" id="3pq-E0-qtY"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="webKit" destination="6vq-h8-lqD" id="o3h-el-rt4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sre-y8-TRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

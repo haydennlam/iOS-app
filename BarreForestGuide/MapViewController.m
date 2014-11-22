@@ -17,6 +17,7 @@
   CLLocationManager *locationManager_;
   sqlite3           *mapDataDB_;
   NSMutableArray    *mapPolylines_;
+  UIView            *markerInfoContentView_;
 }
 
 @synthesize mapView;
@@ -26,6 +27,9 @@
   // Do any additional setup after loading the view, typically from a nib.
 
   self.configModel = [ConfigModel getConfigModel];
+
+  UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+  self.webViewController = [sb instantiateViewControllerWithIdentifier:@"POI Detail View"];
 
   if ([CLLocationManager locationServicesEnabled]) {
     if (locationManager_ == nil)
@@ -39,7 +43,7 @@
     [locationManager_ startUpdatingLocation];
   }
 
-  GMSCameraPosition *camera = [ GMSCameraPosition cameraWithLatitude:44.150004 longitude:-72.469339 zoom:15];
+  GMSCameraPosition *camera = [ GMSCameraPosition cameraWithLatitude:44.1525 longitude:-72.475 zoom:14];
   mapView_ =  [GMSMapView mapWithFrame:mapView.bounds camera:camera];
   mapView_.settings.compassButton = YES;
   mapView_.settings.myLocationButton = YES;
@@ -63,6 +67,10 @@
 
 - (void)drawMapObjects {
   [mapView_ clear];
+  if (markerInfoContentView_) {
+    [markerInfoContentView_ removeFromSuperview];
+    markerInfoContentView_ = nil;
+  }
 
   NSString *mapDataDBName_ = [[NSBundle mainBundle]
                               pathForResource:@"BarreForestGuide"
@@ -134,10 +142,16 @@
         CLLocationCoordinate2D pos = CLLocationCoordinate2DMake(lattitude, longitude);
         GMSMarker *marker = [GMSMarker markerWithPosition:pos];
         if (name) marker.title = [NSString stringWithUTF8String:name];
-        if (url) marker.snippet = [NSString stringWithFormat:@"<a href=\"%s\">More Info</a>", url];
+        if (url) marker.snippet = [NSString stringWithUTF8String:url];
         UIImage *icon = [POI_Icons objectForKey:[NSNumber numberWithInt:type]];
         if (icon) marker.icon = icon;
         marker.map = mapView_;
+
+        // FIXME - remove
+        /*
+        if (strncmp(name, "Little John Parking Lot", 25)==0)
+          mapView_.selectedMarker = marker;
+        */
       }
       sqlite3_finalize(POIQueryStmt);
     } else
@@ -155,13 +169,14 @@
 - (UIView*)mapView:(GMSMapView*)mapView
     markerInfoContents:(GMSMarker*)marker
 {
-  UIView *win = [[UIView alloc] initWithFrame: CGRectMake(0,0,0,0)];
-  UILabel *title_label = [[UILabel alloc] initWithFrame: CGRectMake(0,0,0,0)];
+  UIView *contents = [[UIView alloc] initWithFrame: CGRectZero];
+  UILabel *title_label = [[UILabel alloc] initWithFrame: CGRectZero];
   title_label.text = marker.title;
   [title_label sizeToFit];
   UIButton *moreinfo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [moreinfo setTitle:@"More info" forState:UIControlStateNormal];
   [moreinfo sizeToFit];
+  [moreinfo addTarget:self action:@selector(launchWebView:) forControlEvents:UIControlEventTouchUpInside];
   int numbuttons = 1;
   UIButton *share = 0;
   share = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -182,12 +197,100 @@
   moreinfo.frame = CGRectMake(0, h, w/numbuttons, h);
   if (share)
     share.frame = CGRectMake(w/numbuttons, h, w/numbuttons, h);
-  win.frame = CGRectMake(0, 0, w, 2*h);
-  [win addSubview:title_label];
-  [win addSubview:moreinfo];
+  contents.frame = CGRectMake(0, 0, w, 2*h);
+  [contents addSubview:title_label];
+  [contents addSubview:moreinfo];
   if (share)
-    [win addSubview:share];
+    [contents addSubview:share];
+  return(contents);
+}
+
+double markerInfoRiserSize = 10.0f;
+double markerInfoRiserPad  =  5.0f;
+double markerInfoWidthPad  = 20.0f;
+double markerInfoHeightPad = 10.0f;
+
+- (void)moveInfoWindowContentsToMarker:(GMSMarker*)marker {
+  UIView *contents = markerInfoContentView_;
+  CGPoint mpos = [mapView_.projection pointForCoordinate:[marker position]];
+  double offset = markerInfoRiserSize * M_SQRT2;
+  contents.center = CGPointMake(mpos.x, mpos.y-marker.icon.size.height-markerInfoRiserPad-(offset/2.0f)-(contents.frame.size.height+markerInfoHeightPad)/2.0f);
+}
+
+- (UIView*)mapView:(GMSMapView*)_mapView markerInfoWindow:(GMSMarker*)marker {
+  UIView *content = [self mapView:_mapView markerInfoContents:marker];
+  markerInfoContentView_ = content;
+  [self moveInfoWindowContentsToMarker:marker];
+  content.backgroundColor = [UIColor whiteColor];
+  [_mapView addSubview:content];
+  double content_width = content.frame.size.width;
+  double content_height = content.frame.size.height;
+  double offset = markerInfoRiserSize * M_SQRT2;
+  UIView *contentGhost = [[UIView alloc] initWithFrame:CGRectMake(0, 0, content_width+markerInfoWidthPad, content_height+markerInfoHeightPad)];
+  CGAffineTransform rot45deg = CGAffineTransformMakeRotation(M_PI_4);
+  UIView *riser = [[UIView alloc] initWithFrame:CGRectMake(((content_width+markerInfoWidthPad-markerInfoRiserSize)/2.0f),
+                                                           (content_height+markerInfoHeightPad-(markerInfoRiserSize/2.0f)),
+                                                           markerInfoRiserSize, markerInfoRiserSize)];
+  UIView *riser_inset = [[UIView alloc] initWithFrame:CGRectInset(riser.frame, 0.5f, 0.5f)];
+  riser.transform = rot45deg;
+  riser_inset.transform = rot45deg;
+  UIView *win = [[UIView alloc] initWithFrame:CGRectMake(0, 0, content_width+markerInfoWidthPad, content_height+markerInfoHeightPad+(offset/2.0f)+markerInfoRiserPad)];
+  [win addSubview:riser];
+  [win addSubview:contentGhost];
+  [win addSubview:riser_inset];
+  contentGhost.backgroundColor = [UIColor whiteColor];
+  contentGhost.layer.borderColor = [UIColor lightGrayColor].CGColor;
+  contentGhost.layer.borderWidth = 1.0f;
+  riser.backgroundColor = [UIColor whiteColor];
+  riser.layer.borderColor = [UIColor lightGrayColor].CGColor;
+  riser.layer.borderWidth = 1.0f;
+  riser_inset.backgroundColor = [UIColor whiteColor];
   return(win);
+}
+
+- (void)mapView:(GMSMapView*)_mapView didChangeCameraPosition:(GMSCameraPosition*)position {
+  if (markerInfoContentView_) {
+    if (_mapView.selectedMarker != nil)
+      [self moveInfoWindowContentsToMarker:_mapView.selectedMarker];
+    else {
+      [markerInfoContentView_ removeFromSuperview];
+      markerInfoContentView_ = nil;
+    }
+  }
+}
+
+- (void)mapView:(GMSMapView*)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+  if (markerInfoContentView_) {
+    [markerInfoContentView_ removeFromSuperview];
+    markerInfoContentView_ = nil;
+  }
+}
+
+- (BOOL)mapView:(GMSMapView*)mapView didTapMarker:(GMSMarker*)marker {
+  if (markerInfoContentView_) {
+    [markerInfoContentView_ removeFromSuperview];
+    markerInfoContentView_ = nil;
+  }
+  return(NO);
+}
+
+/*
+- (void)mapView:(GMSMapView*)mapView didTapInfoWindowOfMarker:(GMSMarker*)marker {
+  NSLog(@"didTapInfoWindowOfMarker");
+}
+*/
+
+- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
+  if (([keyPath isEqualToString:@"mapView.selectedMarker"]) && (!mapView_.selectedMarker) && markerInfoContentView_) {
+    [markerInfoContentView_ removeFromSuperview];
+    markerInfoContentView_ = nil;
+  }
+}
+
+- (void)launchWebView:(id)sender {
+  NSLog(@"launchWebView");
+  self.webViewController.url = mapView_.selectedMarker.snippet;
+  [self.navigationController pushViewController:self.webViewController animated:YES];
 }
 
 - (void)locationManager:(CLLocationManager*)manager

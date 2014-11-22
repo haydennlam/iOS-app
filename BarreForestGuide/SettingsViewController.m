@@ -81,6 +81,4 @@ GMSMapViewType rowToMapType(int row) {
 
 @end
 
-// vim:set ai si sw=2 ts=80 ru:
-
 /* vim: set ai si sw=2 ts=80 ru: */
