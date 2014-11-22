@@ -289,6 +289,8 @@ double markerInfoHeightPad = 10.0f;
 
 - (void)launchWebView:(id)sender {
   NSLog(@"launchWebView");
+  self.webViewController.url = mapView_.selectedMarker.snippet;
+  [self.navigationController pushViewController:self.webViewController animated:YES];
 }
 
 - (void)locationManager:(CLLocationManager*)manager

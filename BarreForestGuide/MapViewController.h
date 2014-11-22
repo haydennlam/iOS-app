@@ -10,14 +10,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import "ConfigModel.h"
+#import "WebKitViewController.h"
 
 @interface MapViewController : UIViewController
                                  <CLLocationManagerDelegate,
                                   GMSMapViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIView *mapView;
-@property UIViewController  *webViewController;
-@property ConfigModel       *configModel;
+@property (nonatomic, weak) IBOutlet UIView               *mapView;
+@property                            WebKitViewController *webViewController;
+@property                            ConfigModel          *configModel;
 
 - (void)drawMapObjects;
 - (void)launchWebView:(id)sender;

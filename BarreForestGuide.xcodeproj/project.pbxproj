@@ -32,6 +32,7 @@
 		6E78103719F77AAE00F2AE80 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E78103619F77AAE00F2AE80 /* GoogleMaps.framework */; };
 		6E78103919F77AFC00F2AE80 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6E78103819F77AFC00F2AE80 /* GoogleMaps.bundle */; };
 		6E816E7F19F8C44D00350881 /* BarreForestGuide.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */; };
+		6E84EB9E1A20076D009094A8 /* WebKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E84EB9D1A20076D009094A8 /* WebKitViewController.m */; };
 		A015441D1A1E99DD00C26FB1 /* Overlook.png in Resources */ = {isa = PBXBuildFile; fileRef = A015441C1A1E99DD00C26FB1 /* Overlook.png */; };
 		A015441F1A1E99F800C26FB1 /* ParkingLot.png in Resources */ = {isa = PBXBuildFile; fileRef = A015441E1A1E99F800C26FB1 /* ParkingLot.png */; };
 		A01544231A1E9AEE00C26FB1 /* Store.png in Resources */ = {isa = PBXBuildFile; fileRef = A01544221A1E9AEE00C26FB1 /* Store.png */; };
@@ -83,6 +84,8 @@
 		6E78103619F77AAE00F2AE80 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		6E78103819F77AFC00F2AE80 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = BarreForestGuide.sqlite; sourceTree = "<group>"; };
+		6E84EB9D1A20076D009094A8 /* WebKitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebKitViewController.m; sourceTree = "<group>"; };
+		6E84EB9F1A2007C8009094A8 /* WebKitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebKitViewController.h; sourceTree = "<group>"; };
 		A015441C1A1E99DD00C26FB1 /* Overlook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlook.png; sourceTree = "<group>"; };
 		A015441E1A1E99F800C26FB1 /* ParkingLot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParkingLot.png; sourceTree = "<group>"; };
 		A01544221A1E9AEE00C26FB1 /* Store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Store.png; sourceTree = "<group>"; };
@@ -122,7 +125,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6E322DCD1A1AFE0600FE4B45 /* Icons */ = {
+		6E322DCD1A1AFE0600FE4B45 /* POI_Icons */ = {
 			isa = PBXGroup;
 			children = (
 				A015441E1A1E99F800C26FB1 /* ParkingLot.png */,
@@ -165,6 +168,8 @@
 				6E5DEF991A1EF86E00B5B326 /* SettingsViewController.h */,
 				6E5DEF9B1A1EF92D00B5B326 /* SettingsViewController.m */,
 				6E661E0319F4C68D00481D4D /* Main.storyboard */,
+				6E84EB9D1A20076D009094A8 /* WebKitViewController.m */,
+				6E84EB9F1A2007C8009094A8 /* WebKitViewController.h */,
 				6E661E0619F4C68D00481D4D /* Images.xcassets */,
 				6E661E0819F4C68D00481D4D /* LaunchScreen.xib */,
 				6E661DF919F4C68D00481D4D /* Supporting Files */,
@@ -224,7 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				A01544261A1E9B6500C26FB1 /* buttonImages */,
-				6E322DCD1A1AFE0600FE4B45 /* Icons */,
+				6E322DCD1A1AFE0600FE4B45 /* POI_Icons */,
 				6E816E7E19F8C44D00350881 /* BarreForestGuide.sqlite */,
 			);
 			name = Resources;
@@ -369,6 +374,7 @@
 				6E661DFF19F4C68D00481D4D /* AppDelegate.m in Sources */,
 				6E5DEF9C1A1EF92D00B5B326 /* SettingsViewController.m in Sources */,
 				6E661DFC19F4C68D00481D4D /* main.m in Sources */,
+				6E84EB9E1A20076D009094A8 /* WebKitViewController.m in Sources */,
 				6E322DE31A1B127300FE4B45 /* ConfigModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
