@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41E8C8361A240A360016CE46 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E8C8351A240A360016CE46 /* FacebookSDK.framework */; };
+		41E8C83B1A240C870016CE46 /* FacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E8C83A1A240C870016CE46 /* FacebookViewController.m */; };
 		6E322DE31A1B127300FE4B45 /* ConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E322DE21A1B127300FE4B45 /* ConfigModel.m */; };
 		6E5DEF9C1A1EF92D00B5B326 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5DEF9B1A1EF92D00B5B326 /* SettingsViewController.m */; };
 		6E661DFC19F4C68D00481D4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E661DFB19F4C68D00481D4D /* main.m */; };
@@ -51,6 +53,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41E8C8351A240A360016CE46 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		41E8C83A1A240C870016CE46 /* FacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookViewController.m; sourceTree = "<group>"; };
+		41E8C83C1A240CBA0016CE46 /* FacebookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FacebookViewController.h; sourceTree = "<group>"; };
 		6E322DDE1A1B120000FE4B45 /* ConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigModel.h; sourceTree = "<group>"; };
 		6E322DE21A1B127300FE4B45 /* ConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigModel.m; sourceTree = "<group>"; };
 		6E5DEF991A1EF86E00B5B326 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -109,6 +114,7 @@
 				6E78103719F77AAE00F2AE80 /* GoogleMaps.framework in Frameworks */,
 				6E661E2F19F6718E00481D4D /* GLKit.framework in Frameworks */,
 				6E661E2D19F6718000481D4D /* CoreText.framework in Frameworks */,
+				41E8C8361A240A360016CE46 /* FacebookSDK.framework in Frameworks */,
 				6E661E2B19F6717100481D4D /* CoreLocation.framework in Frameworks */,
 				6E661E2919F6716700481D4D /* CoreData.framework in Frameworks */,
 				6E661E2719F6715700481D4D /* AVFoundation.framework in Frameworks */,
@@ -163,6 +169,8 @@
 				6E661DFE19F4C68D00481D4D /* AppDelegate.m */,
 				6E322DDE1A1B120000FE4B45 /* ConfigModel.h */,
 				6E322DE21A1B127300FE4B45 /* ConfigModel.m */,
+				41E8C83A1A240C870016CE46 /* FacebookViewController.m */,
+				41E8C83C1A240CBA0016CE46 /* FacebookViewController.h */,
 				6E661E0019F4C68D00481D4D /* MapViewController.h */,
 				6E661E0119F4C68D00481D4D /* MapViewController.m */,
 				6E5DEF991A1EF86E00B5B326 /* SettingsViewController.h */,
@@ -206,6 +214,7 @@
 		6E661E2119F6706800481D4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41E8C8351A240A360016CE46 /* FacebookSDK.framework */,
 				6E78103819F77AFC00F2AE80 /* GoogleMaps.bundle */,
 				6E78103619F77AAE00F2AE80 /* GoogleMaps.framework */,
 				6E661E3E19F74AC300481D4D /* libsqlite3.dylib */,
@@ -372,6 +381,7 @@
 			files = (
 				6E661E0219F4C68D00481D4D /* MapViewController.m in Sources */,
 				6E661DFF19F4C68D00481D4D /* AppDelegate.m in Sources */,
+				41E8C83B1A240C870016CE46 /* FacebookViewController.m in Sources */,
 				6E5DEF9C1A1EF92D00B5B326 /* SettingsViewController.m in Sources */,
 				6E661DFC19F4C68D00481D4D /* main.m in Sources */,
 				6E84EB9E1A20076D009094A8 /* WebKitViewController.m in Sources */,
@@ -505,6 +515,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/huyenlam/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = BarreForestGuide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -520,6 +531,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/huyenlam/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = BarreForestGuide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
